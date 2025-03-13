@@ -1,4 +1,4 @@
-package HW1;
+package keelung.com.example.keelung.HW1;
 
 public class Sight {
     private String sightName;

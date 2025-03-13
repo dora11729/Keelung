@@ -1,13 +1,15 @@
-package HW1;
+package keelung.com.example.keelung.HW1;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class KeelungSightsCrawler {
     //總覽網址
     private static final String BASE_URL = "https://www.travelking.com.tw";
