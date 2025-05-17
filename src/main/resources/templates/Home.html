@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>基隆景點瀏覽器</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body class="bg-light">
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4">基隆景點瀏覽器</h1>
+
+    <!-- 按鈕區 -->
+    <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
+        <button class="btn btn-primary zone-btn" data-zone="中山區">中山區</button>
+        <button class="btn btn-primary zone-btn" data-zone="信義區">信義區</button>
+        <button class="btn btn-primary zone-btn" data-zone="仁愛區">仁愛區</button>
+        <button class="btn btn-primary zone-btn" data-zone="中正區">中正區</button>
+        <button class="btn btn-primary zone-btn" data-zone="安樂區">安樂區</button>
+        <button class="btn btn-primary zone-btn" data-zone="七堵區">七堵區</button>
+        <button class="btn btn-primary zone-btn" data-zone="暖暖區">暖暖區</button>
+    </div>
+
+    <!-- 景點卡片 -->
+    <div id="sights-container" class="row g-3"></div>
+</div>
+
+<script>
+
+    $(document).ready(function() {
+        $(".zone-btn").click(function() {
+            let zone = $(this).data("zone");
+            fetchSights(zone);
+            //alert("點擊：" + zone);
+        });
+    });
+
+    function fetchSights(zone) {
+        $.ajax({
+            url: `http://127.0.0.1:8080/SightAPI?zone=${zone}`,
+            method: "GET",
+            dataType: "json",
+            success: function(data) {
+                displaySights(data);
+            },
+            error: function() {
+                alert("無法取得資料，請檢查 API 是否啟動");
+            }
+        });
+    }
+
+    function displaySights(sights) {
+        let container = $("#sights-container");
+        container.empty(); // 清空舊資料
+        sights.forEach(sight => {
+            let card = `
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">${sight.sightName}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">${sight.zone} ${sight.category}</h6>
+                        <div class="d-flex gap-2">
+                            <a class="btn btn-outline-primary" href="https://www.google.com/maps/search/?q=${sight.address}" target="_blank" role="button">📍地址</a>
+                            <button class="btn btn-info" type="button" data-bs-toggle="collapse" data-bs-target="#sightDetail-${sight.sightName.trim()}" aria-expanded="false" aria-controls="sightDetail">詳細資料</button>
+                        </div>
+                        <div class="collapse" id="sightDetail-${sight.sightName.trim()}">
+                            <img src="${sight.photoURL}" class="card-img-top mt-2 mb-2" style="height: 200px; width: fit-content" alt="">
+                            <p class="card-text">${sight.description}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+            container.append(card);
+        });
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

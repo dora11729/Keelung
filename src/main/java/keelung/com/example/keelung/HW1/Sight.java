@@ -1,6 +1,12 @@
 package keelung.com.example.keelung.HW1;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "sight")
 public class Sight {
+    @Id
+    private String id;
     private String sightName;
     private String zone;
     private String category;

@@ -1,13 +1,11 @@
 package keelung.com.example.keelung.HW2;
 
 import keelung.com.example.keelung.HW1.Sight;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/SightAPI")
 public class SightController {
@@ -17,10 +15,19 @@ public class SightController {
         this.sightService = sightService;
     }
 
+    /*
     @GetMapping
     public List<Sight> getSights(
             @RequestParam String zone
     ){
         return sightService.getSightsByZone(zone);
+    }
+     */
+
+    @GetMapping
+    public List<Sight> getSightsFromDB(
+            @RequestParam String zone
+    ){
+        return sightService.findSightsFromDB(zone);
     }
 }
