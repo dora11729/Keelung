@@ -1,11 +1,12 @@
-# 使用 OpenJDK 作為基底映像
-FROM eclipse-temurin:17-jdk
-
-# 設定工作目錄
+# Build stage: 打包 jar
+FROM maven:3.9.4-eclipse-temurin-21 AS builder
 WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-# 複製 Maven 打包後的 Jar 檔
-COPY target/*.jar app.jar
-
-# 預設執行指令
+# Package stage: 用JDK 執行 jar
+FROM eclipse-temurin:21-jdk
+WORKDIR /app
+COPY --from=builder /app/target/*.jar app.jar
+EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
