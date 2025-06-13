@@ -1,4 +1,4 @@
-package keelung.com.example.keelung.HW3;
+package keelung.com.example.keelung.homework3;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

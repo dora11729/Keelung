@@ -1,4 +1,4 @@
-package keelung.com.example.keelung.HW1;
+package keelung.com.example.keelung.homework1;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -50,7 +50,7 @@ public class KeelungSightsCrawler {
                             String address = sightWrapper.select("meta[itemprop=address]").attr("content");
 
                             if (photoURL == null || photoURL.isEmpty()){
-                                photoURL = "../static/notFound.png";
+                                photoURL = "/notFound.png";
                             }
 
                             //建立 Sight

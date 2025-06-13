@@ -1,6 +1,6 @@
-package keelung.com.example.keelung.HW3;
+package keelung.com.example.keelung.homework3;
 
-import keelung.com.example.keelung.HW2.SightService;
+import keelung.com.example.keelung.homework2.SightService;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;

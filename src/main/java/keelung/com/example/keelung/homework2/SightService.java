@@ -1,12 +1,8 @@
-package keelung.com.example.keelung.HW2;
+package keelung.com.example.keelung.homework2;
 
-import jakarta.annotation.PostConstruct;
-import keelung.com.example.keelung.HW1.KeelungSightsCrawler;
-import keelung.com.example.keelung.HW1.Sight;
-import keelung.com.example.keelung.HW3.SightRepository;
-import org.bson.Document;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
+import keelung.com.example.keelung.homework1.KeelungSightsCrawler;
+import keelung.com.example.keelung.homework1.Sight;
+import keelung.com.example.keelung.homework3.SightRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,13 +18,10 @@ public class SightService {
     }
 
     public void crawlAndSaveSights(){
-        if (sightRepository.count() == 0){
-            List<Sight> sights = crawler.crawlAllSights();
-            sightRepository.saveAll(sights);
-            System.out.println("資料初始化完成，共存入 " + sights.size() + " 個景點");
-        } else {
-            System.out.println("資料庫已有資料，跳過初始化");
-        }
+        List<Sight> sights = crawler.crawlAllSights();
+        sightRepository.deleteAll();
+        sightRepository.saveAll(sights);
+        System.out.println("資料初始化完成，共存入 " + sights.size() + " 個景點");
     }
 
     // 從 Crawler 的 HashMap 取

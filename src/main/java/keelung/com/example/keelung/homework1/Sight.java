@@ -1,4 +1,4 @@
-package keelung.com.example.keelung.HW1;
+package keelung.com.example.keelung.homework1;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

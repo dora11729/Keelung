@@ -1,6 +1,6 @@
-package keelung.com.example.keelung.HW2;
+package keelung.com.example.keelung.homework2;
 
-import keelung.com.example.keelung.HW1.Sight;
+import keelung.com.example.keelung.homework1.Sight;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
