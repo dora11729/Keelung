@@ -3,6 +3,8 @@ package keelung.com.example.keelung.homework2;
 import keelung.com.example.keelung.homework1.KeelungSightsCrawler;
 import keelung.com.example.keelung.homework1.Sight;
 import keelung.com.example.keelung.homework3.SightRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.List;
 public class SightService {
     private final KeelungSightsCrawler crawler;
     private final SightRepository sightRepository;
+    private static final Logger logger = LoggerFactory.getLogger(SightService.class);
 
     public SightService(KeelungSightsCrawler crawler, SightRepository sightRepository){
         this.crawler = crawler;
@@ -21,7 +24,8 @@ public class SightService {
         List<Sight> sights = crawler.crawlAllSights();
         sightRepository.deleteAll();
         sightRepository.saveAll(sights);
-        System.out.println("資料初始化完成，共存入 " + sights.size() + " 個景點");
+        logger.info("資料初始化完成，共存入 " + sights.size() + " 個景點");
+        //System.out.println("資料初始化完成，共存入 " + sights.size() + " 個景點");
     }
 
     // 從 Crawler 的 HashMap 取
@@ -31,7 +35,8 @@ public class SightService {
 
     // 從 Repository 取
     public List<Sight> findSightsFromDB(String zone){
-        System.out.println("從資料庫查詢 " + zone);
+        logger.info("從資料庫查詢 " + zone);
+        //System.out.println("從資料庫查詢 " + zone);
         return sightRepository.findByZone(zone);
     }
 }
